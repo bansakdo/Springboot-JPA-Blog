@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.ValueGenerationType;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Builder
 @Entity
+@DynamicInsert
 public class User {
 
     @Id
@@ -31,8 +33,9 @@ public class User {
     @Column(nullable = false, length = 50)
     private String email;
 
-    @ColumnDefault("'user'")
-    private String role;
+//    @ColumnDefault("'user'")
+    @Enumerated(EnumType.STRING)
+    private RoleType role;          // ADMIN, USER
 
     @CreationTimestamp
     private Timestamp createDate;
